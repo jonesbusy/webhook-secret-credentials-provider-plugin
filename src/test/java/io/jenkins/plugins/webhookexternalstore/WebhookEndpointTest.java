@@ -49,16 +49,13 @@ class WebhookEndpointTest {
 
         // Username password credentials
         // language=JSON
-        String payload = """
-                {
-                    "description": "An username password credentials",
-                    "id": "username-password-credentials",
-                    "secret": {
-                        "token": "theSecretTokenValue"
-                    },
-                    "type": "secretText"
-                }
-                """;
+        String payload = "{\n" + "    \"description\": \"An username password credentials\",\n"
+                + "    \"id\": \"username-password-credentials\",\n"
+                + "    \"secret\": {\n"
+                + "        \"token\": \"theSecretTokenValue\"\n"
+                + "    },\n"
+                + "    \"type\": \"secretText\"\n"
+                + "}";
 
         try (JenkinsRule.WebClient client = jenkins.createWebClient()) {
             client.addRequestHeader("Authorization", "Bearer test-bearer-token-123");
@@ -89,17 +86,14 @@ class WebhookEndpointTest {
 
         // Username password credentials
         // language=JSON
-        String payload = """
-                {
-                    "description": "An username password credentials",
-                    "id": "username-password-credentials",
-                    "secret": {
-                        "password": "password123",
-                        "username": "userName"
-                    },
-                    "type": "usernamePassword"
-                }
-                """;
+        String payload = "{\n" + "    \"description\": \"An username password credentials\",\n"
+                + "    \"id\": \"username-password-credentials\",\n"
+                + "    \"secret\": {\n"
+                + "        \"password\": \"password123\",\n"
+                + "        \"username\": \"userName\"\n"
+                + "    },\n"
+                + "    \"type\": \"usernamePassword\"\n"
+                + "}";
         try (JenkinsRule.WebClient client = jenkins.createWebClient()) {
             client.addRequestHeader("Authorization", "Bearer test-bearer-token-123");
             JenkinsRule.JSONWebResponse response = client.postJSON(UPDATE_PATH, JSONObject.fromObject(payload));
@@ -129,24 +123,21 @@ class WebhookEndpointTest {
 
         // Basic SSH User Private Key credentials
         // language=JSON
-        String payload = """
-        {
-            "description": "An SSH private key credentials",
-            "id": "ssh-private-key-credentials",
-            "secret": {
-                "username": "sshUser",
-                "privateKey": "-----BEGIN OPENSSH PRIVATE KEY-----\\n\
-b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAAAMwAAAAtzc2gtZW\\n\
-QyNTUxOQAAACD6v4+ISS8l9XSyVuod+3GTdbO/VYFTuUB3MdbHvPS/TwAAAJC2EVUKthFV\\n\
-CgAAAAtzc2gtZWQyNTUxOQAAACD6v4+ISS8l9XSyVuod+3GTdbO/VYFTuUB3MdbHvPS/Tw\\n\
-AAAEDDaBwB5sI/2gDPpGtYeuKwmVzxmKAZvibatpcopOU+zPq/j4hJLyX1dLJW6h37cZN1\\n\
-s79VgVO5QHcx1se89L9PAAAADHZhbGRATkIyNzc2NAE=\\n\
------END OPENSSH PRIVATE KEY-----",
-                "passphrase": "sshPassphrase"
-            },
-            "type": "basicSSHUserPrivateKey"
-        }
-        """;
+        String payload = "{\n" + "    \"description\": \"An SSH private key credentials\",\n"
+                + "    \"id\": \"ssh-private-key-credentials\",\n"
+                + "    \"secret\": {\n"
+                + "        \"username\": \"sshUser\",\n"
+                + "        \"privateKey\": \"-----BEGIN OPENSSH PRIVATE KEY-----\\n"
+                + "b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAAAMwAAAAtzc2gtZW\\n"
+                + "QyNTUxOQAAACD6v4+ISS8l9XSyVuod+3GTdbO/VYFTuUB3MdbHvPS/TwAAAJC2EVUKthFV\\n"
+                + "CgAAAAtzc2gtZWQyNTUxOQAAACD6v4+ISS8l9XSyVuod+3GTdbO/VYFTuUB3MdbHvPS/Tw\\n"
+                + "AAAEDDaBwB5sI/2gDPpGtYeuKwmVzxmKAZvibatpcopOU+zPq/j4hJLyX1dLJW6h37cZN1\\n"
+                + "s79VgVO5QHcx1se89L9PAAAADHZhbGRATkIyNzc2NAE=\\n"
+                + "-----END OPENSSH PRIVATE KEY-----\",\n"
+                + "        \"passphrase\": \"sshPassphrase\"\n"
+                + "    },\n"
+                + "    \"type\": \"basicSSHUserPrivateKey\"\n"
+                + "}";
 
         try (JenkinsRule.WebClient client = jenkins.createWebClient()) {
             client.addRequestHeader("Authorization", "Bearer test-bearer-token-123");
@@ -164,15 +155,13 @@ s79VgVO5QHcx1se89L9PAAAADHZhbGRATkIyNzc2NAE=\\n\
             assertEquals("An SSH private key credentials", createdCredentials.getDescription());
             assertEquals("sshUser", createdCredentials.getUsername());
             assertEquals(
-                    """
-                            -----BEGIN OPENSSH PRIVATE KEY-----
-                            b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAAAMwAAAAtzc2gtZW
-                            QyNTUxOQAAACD6v4+ISS8l9XSyVuod+3GTdbO/VYFTuUB3MdbHvPS/TwAAAJC2EVUKthFV
-                            CgAAAAtzc2gtZWQyNTUxOQAAACD6v4+ISS8l9XSyVuod+3GTdbO/VYFTuUB3MdbHvPS/Tw
-                            AAAEDDaBwB5sI/2gDPpGtYeuKwmVzxmKAZvibatpcopOU+zPq/j4hJLyX1dLJW6h37cZN1
-                            s79VgVO5QHcx1se89L9PAAAADHZhbGRATkIyNzc2NAE=
-                            -----END OPENSSH PRIVATE KEY-----
-                            """,
+                    "-----BEGIN OPENSSH PRIVATE KEY-----\n"
+                            + "b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAAAMwAAAAtzc2gtZW\n"
+                            + "QyNTUxOQAAACD6v4+ISS8l9XSyVuod+3GTdbO/VYFTuUB3MdbHvPS/TwAAAJC2EVUKthFV\n"
+                            + "CgAAAAtzc2gtZWQyNTUxOQAAACD6v4+ISS8l9XSyVuod+3GTdbO/VYFTuUB3MdbHvPS/Tw\n"
+                            + "AAAEDDaBwB5sI/2gDPpGtYeuKwmVzxmKAZvibatpcopOU+zPq/j4hJLyX1dLJW6h37cZN1\n"
+                            + "s79VgVO5QHcx1se89L9PAAAADHZhbGRATkIyNzc2NAE=\n"
+                            + "-----END OPENSSH PRIVATE KEY-----\n",
                     createdCredentials.getPrivateKeySource().getPrivateKeys().get(0));
             assertEquals("sshPassphrase", createdCredentials.getPassphrase().getPlainText());
         }
@@ -187,17 +176,14 @@ s79VgVO5QHcx1se89L9PAAAADHZhbGRATkIyNzc2NAE=\\n\
 
         // Secret File credentials
         // language=JSON
-        String payload = """
-        {
-            "description": "A secret file credentials",
-            "id": "secret-file-credentials",
-            "secret": {
-                "filename": "foo.txt",
-                "data": "Zm9vLWJhci10ZXN0"
-            },
-            "type": "secretFile"
-        }
-        """;
+        String payload = "{\n" + "    \"description\": \"A secret file credentials\",\n"
+                + "    \"id\": \"secret-file-credentials\",\n"
+                + "    \"secret\": {\n"
+                + "        \"filename\": \"foo.txt\",\n"
+                + "        \"data\": \"Zm9vLWJhci10ZXN0\"\n"
+                + "    },\n"
+                + "    \"type\": \"secretFile\"\n"
+                + "}";
 
         try (JenkinsRule.WebClient client = jenkins.createWebClient()) {
             client.addRequestHeader("Authorization", "Bearer test-bearer-token-123");

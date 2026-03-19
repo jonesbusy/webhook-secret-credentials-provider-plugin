@@ -6,8 +6,8 @@ import io.jenkins.plugins.webhookexternalstore.exceptions.CredentialsConvertionE
 import java.io.BufferedReader;
 import java.io.IOException;
 import net.sf.json.JSONObject;
-import org.kohsuke.stapler.StaplerRequest2;
-import org.kohsuke.stapler.StaplerResponse2;
+import org.kohsuke.stapler.StaplerRequest;
+import org.kohsuke.stapler.StaplerResponse;
 import org.kohsuke.stapler.verb.POST;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,7 +46,7 @@ public class WebhookEndpoint implements UnprotectedRootAction {
 
     @POST
     @SuppressWarnings({"unused", "lgtm[jenkins/no-permission-check]"}) // API protected by Bearer token
-    public void doUpdate(StaplerRequest2 request, StaplerResponse2 response) throws IOException {
+    public void doUpdate(StaplerRequest request, StaplerResponse response) throws IOException {
         try {
 
             // Authenticate the request
@@ -83,7 +83,7 @@ public class WebhookEndpoint implements UnprotectedRootAction {
      * @param request the HTTP request
      * @return the parsed webhook payload, or null if parsing fails
      */
-    private WebhookPayload parsePayload(StaplerRequest2 request) throws CredentialsConvertionException {
+    private WebhookPayload parsePayload(StaplerRequest request) throws CredentialsConvertionException {
         try {
             JSONObject json = JSONObject.fromObject(getString(request));
             return WebhookPayload.fromJSON(json);
@@ -101,7 +101,7 @@ public class WebhookEndpoint implements UnprotectedRootAction {
      * @throws CredentialsConvertionException if empty body or invalid content type
      * @throws IOException if an I/O error occurs
      */
-    private static String getString(StaplerRequest2 request) throws CredentialsConvertionException, IOException {
+    private static String getString(StaplerRequest request) throws CredentialsConvertionException, IOException {
         String contentType = request.getContentType();
         if (contentType == null || !contentType.contains("application/json")) {
             throw new CredentialsConvertionException(
@@ -127,7 +127,7 @@ public class WebhookEndpoint implements UnprotectedRootAction {
      * @param request the HTTP request
      * @return true if authentication is successful, false otherwise
      */
-    private boolean authenticateRequest(StaplerRequest2 request) {
+    private boolean authenticateRequest(StaplerRequest request) {
         WebhookConfiguration config = WebhookConfiguration.getInstance();
 
         if (!config.isTokenConfigured()) {

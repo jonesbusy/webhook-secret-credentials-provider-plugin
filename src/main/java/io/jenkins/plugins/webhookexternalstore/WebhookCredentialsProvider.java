@@ -16,8 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import jenkins.model.Jenkins;
-import org.jspecify.annotations.NonNull;
-import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
@@ -59,11 +57,11 @@ public class WebhookCredentialsProvider extends CredentialsProvider {
     }
 
     @Override
-    public @NonNull <C extends Credentials> List<C> getCredentialsInItemGroup(
-            @NonNull Class<C> type,
-            @Nullable ItemGroup itemGroup,
-            @Nullable Authentication authentication,
-            @NonNull List<DomainRequirement> domainRequirements) {
+    public <C extends Credentials> List<C> getCredentialsInItemGroup(
+            Class<C> type,
+            ItemGroup itemGroup,
+            Authentication authentication,
+            List<DomainRequirement> domainRequirements) {
         ArrayList<C> list = new ArrayList<>();
         if (ACL.SYSTEM2.equals(authentication)) {
             for (IdCredentials cred : credentials.values()) {

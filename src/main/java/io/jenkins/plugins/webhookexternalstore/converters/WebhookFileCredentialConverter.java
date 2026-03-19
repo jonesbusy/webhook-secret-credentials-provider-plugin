@@ -43,7 +43,7 @@ public class WebhookFileCredentialConverter extends WebhookToCredentialConverter
             throw new CredentialsConvertionException("Missing required data in secret for secretFile credentials");
         }
         String data = new String(Base64.getDecoder().decode(dataBase64), StandardCharsets.UTF_8);
-        SecretBytes sb = SecretBytes.fromRawBytes(data.getBytes(StandardCharsets.UTF_8));
+        SecretBytes sb = SecretBytes.fromBytes(data.getBytes(StandardCharsets.UTF_8));
         return new FileCredentialsImpl(CredentialsScope.GLOBAL, id, description, filename, sb);
     }
 }

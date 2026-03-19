@@ -1,6 +1,5 @@
 package io.jenkins.plugins.webhookexternalstore;
 
-import edu.umd.cs.findbugs.annotations.NonNull;
 import hudson.Extension;
 import hudson.model.Descriptor;
 import hudson.util.Secret;
@@ -9,7 +8,7 @@ import jenkins.model.GlobalConfigurationCategory;
 import net.sf.json.JSONObject;
 import org.jenkinsci.Symbol;
 import org.kohsuke.stapler.DataBoundSetter;
-import org.kohsuke.stapler.StaplerRequest2;
+import org.kohsuke.stapler.StaplerRequest;
 
 /**
  * Global configuration for webhook credentials provider, including Bearer token authentication.
@@ -83,19 +82,17 @@ public class WebhookConfiguration extends GlobalConfiguration {
     }
 
     @Override
-    @NonNull
     public GlobalConfigurationCategory getCategory() {
         return GlobalConfigurationCategory.get(GlobalConfigurationCategory.Security.class);
     }
 
     @Override
-    public boolean configure(StaplerRequest2 req, JSONObject formData) throws Descriptor.FormException {
+    public boolean configure(StaplerRequest req, JSONObject formData) throws Descriptor.FormException {
         req.bindJSON(this, formData);
         return super.configure(req, formData);
     }
 
     @Override
-    @NonNull
     public String getDisplayName() {
         return "Webhook External Secret Credentials Provider";
     }

@@ -6,8 +6,6 @@ import com.cloudbees.plugins.credentials.CredentialsStore;
 import com.cloudbees.plugins.credentials.CredentialsStoreAction;
 import com.cloudbees.plugins.credentials.common.IdCredentials;
 import com.cloudbees.plugins.credentials.domains.Domain;
-import edu.umd.cs.findbugs.annotations.CheckForNull;
-import edu.umd.cs.findbugs.annotations.NonNull;
 import hudson.XmlFile;
 import hudson.model.ModelObject;
 import hudson.security.Permission;
@@ -52,20 +50,19 @@ public class WebhookCredentialsStore extends CredentialsStore {
      * @param provider the provider
      * @param context the context
      */
-    public WebhookCredentialsStore(@NonNull WebhookCredentialsProvider provider, @NonNull ModelObject context) {
+    public WebhookCredentialsStore(WebhookCredentialsProvider provider, ModelObject context) {
         super(WebhookCredentialsProvider.class);
         this.provider = provider;
         load();
     }
 
     @Override
-    @NonNull
     public ModelObject getContext() {
         return Jenkins.get();
     }
 
     @Override
-    public boolean hasPermission2(@NonNull Authentication authentication, @NonNull Permission permission) {
+    public boolean hasPermission2(Authentication authentication, Permission permission) {
         if (!CredentialsProvider.VIEW.equals(permission)) {
             return false;
         }
@@ -73,8 +70,7 @@ public class WebhookCredentialsStore extends CredentialsStore {
     }
 
     @Override
-    @NonNull
-    public List<Credentials> getCredentials(@NonNull Domain domain) {
+    public List<Credentials> getCredentials(Domain domain) {
         if (!Domain.global().equals(domain)) {
             return Collections.emptyList();
         }
@@ -82,29 +78,26 @@ public class WebhookCredentialsStore extends CredentialsStore {
     }
 
     @Override
-    public boolean addCredentials(@NonNull Domain domain, @NonNull Credentials credentials) {
+    public boolean addCredentials(Domain domain, Credentials credentials) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public boolean updateCredentials(
-            @NonNull Domain domain, @NonNull Credentials current, @NonNull Credentials replacement) {
+    public boolean updateCredentials(Domain domain, Credentials current, Credentials replacement) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public boolean removeCredentials(@NonNull Domain domain, @NonNull Credentials credentials) {
+    public boolean removeCredentials(Domain domain, Credentials credentials) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    @NonNull
     public List<Domain> getDomains() {
         return Collections.singletonList(Domain.global());
     }
 
     @Override
-    @CheckForNull
     public CredentialsStoreAction getStoreAction() {
         return action;
     }
@@ -163,7 +156,6 @@ public class WebhookCredentialsStore extends CredentialsStore {
         }
 
         @Override
-        @NonNull
         public CredentialsStore getStore() {
             return store;
         }

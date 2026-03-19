@@ -8,7 +8,12 @@ import net.sf.json.JSONObject;
 /**
  * Represents the JSON payload received via webhook for credential creation/update.
  */
-public record WebhookPayload(String id, String description, String type, Map<String, Object> secret) {
+public class WebhookPayload {
+
+    private final String id;
+    private final String description;
+    private final String type;
+    private final Map<String, Object> secret;
 
     /**
      * Constructor for WebhookPayload.
@@ -72,7 +77,8 @@ public record WebhookPayload(String id, String description, String type, Map<Str
      * @return the secret value as a String, or null if not found or not a String
      */
     public String getSecretValue(String key) {
-        return (secret.get(key) instanceof String s) ? s : null;
+        Object value = secret.get(key);
+        return (value instanceof String) ? (String) value : null;
     }
 
     @Override

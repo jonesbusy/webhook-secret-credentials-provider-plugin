@@ -26,21 +26,19 @@ class PipelineTest {
         webhookCredentialsProvider.addOrUpdateCredential(payload);
 
         // language=jenkinsfile
-        String pipeline = """
-                pipeline {
-                    agent {
-                        label('built-in')
-                    }
-                    stages {
-                        stage('Use credentials') {
-                            steps {
-                                withCredentials([string(credentialsId: 'my-secret-text', variable: 'SECRET_TEXT')]) {
-                                    echo "The secret text is: ${SECRET_TEXT}"
-                                }
-                            }
-                        }
-                    }
-                }""";
+        String pipeline = "pipeline {\n" + "    agent {\n"
+                + "        label('built-in')\n"
+                + "    }\n"
+                + "    stages {\n"
+                + "        stage('Use credentials') {\n"
+                + "            steps {\n"
+                + "                withCredentials([string(credentialsId: 'my-secret-text', variable: 'SECRET_TEXT')]) {\n"
+                + "                    echo \"The secret text is: ${SECRET_TEXT}\"\n"
+                + "                }\n"
+                + "            }\n"
+                + "        }\n"
+                + "    }\n"
+                + "}";
         WorkflowJob workflowJob = jenkins.createProject(WorkflowJob.class);
         workflowJob.setDefinition(new CpsFlowDefinition(pipeline, true));
         WorkflowRun run1 = workflowJob.scheduleBuild2(0).waitForStart();

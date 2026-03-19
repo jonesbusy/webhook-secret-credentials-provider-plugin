@@ -5,7 +5,7 @@
   <parent>
     <groupId>org.jenkins-ci.plugins</groupId>
     <artifactId>plugin</artifactId>
-    <version>6.2138.v03274d462c13</version>
+    <version>4.88</version>
     <relativePath />
   </parent>
 
@@ -32,8 +32,8 @@
   <properties>
     <changelist>999999-SNAPSHOT</changelist>
     <!-- https://www.jenkins.io/doc/developer/plugin-development/choosing-jenkins-baseline/ -->
-    <jenkins.baseline>2.528</jenkins.baseline>
-    <jenkins.version>${jenkins.baseline}.3</jenkins.version>
+    <jenkins.baseline>2.426</jenkins.baseline>
+    <jenkins.version>${jenkins.baseline}.1</jenkins.version>
     <gitHubRepo>jenkinsci/${project.artifactId}-plugin</gitHubRepo>
     <spotless.check.skip>false</spotless.check.skip>
     <ban-junit4-imports.skip>false</ban-junit4-imports.skip>
@@ -46,7 +46,7 @@
       <dependency>
         <groupId>io.jenkins.tools.bom</groupId>
         <artifactId>bom-${jenkins.baseline}.x</artifactId>
-        <version>5983.v443959746f1f</version>
+        <version>2555.v3190a_8a_c60c6</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -57,6 +57,7 @@
     <dependency>
       <groupId>io.jenkins.plugins</groupId>
       <artifactId>json-api</artifactId>
+      <version>20231013-3.v20f3c247f2fe</version>
     </dependency>
     <dependency>
       <groupId>org.jenkins-ci.plugins</groupId>
@@ -84,11 +85,13 @@
     <dependency>
       <groupId>io.jenkins</groupId>
       <artifactId>configuration-as-code</artifactId>
+      <version>1752.v0ccc3b_6064b_0</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>io.jenkins.configuration-as-code</groupId>
       <artifactId>test-harness</artifactId>
+      <version>1752.v0ccc3b_6064b_0</version>
       <scope>test</scope>
     </dependency>
     <dependency>

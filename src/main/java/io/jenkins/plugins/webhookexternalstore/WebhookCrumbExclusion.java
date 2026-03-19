@@ -2,11 +2,11 @@ package io.jenkins.plugins.webhookexternalstore;
 
 import hudson.Extension;
 import hudson.security.csrf.CrumbExclusion;
-import jakarta.servlet.FilterChain;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * Ensure that the REST URL /webhook-credentials/update is excluded from CSRF protection
@@ -21,7 +21,8 @@ public class WebhookCrumbExclusion extends CrumbExclusion {
             throws IOException, ServletException {
 
         String path = request.getPathInfo();
-        if (path != null && path.startsWith("/%s/update".formatted(WebhookEndpoint.WEBHOOK_PATH))) {
+        if (path != null
+                && String.format("/%s/update", WebhookEndpoint.WEBHOOK_PATH).equals(path)) {
             chain.doFilter(request, response);
             return true;
         }
